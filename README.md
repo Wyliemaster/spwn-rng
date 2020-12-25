@@ -17,7 +17,7 @@ once imported you can use the following macros:
     makes you a seed
 
 
-an example of the RNG being implemented can be found [here](https://github.com/Wyliemaster/spwn-rng/blob/main/test.spwn) or as show below
+an example of the RNG being implemented can be found [here](https://github.com/Wyliemaster/spwn-rng/blob/main/test.spwn) or as shown below
 
 ```spwn
 extract obj_props;
