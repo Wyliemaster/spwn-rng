@@ -1,0 +1,13 @@
+extract obj_props;
+extract import "rng.spwn";
+
+
+inputSeed = input_seed_modifier(1234); // add a 4 digit number here
+
+$.add(obj {
+    OBJ_ID: 1615,
+    X: 300,
+    Y: 90,
+    ITEM: inputSeed.item,
+    GROUPS: 999g
+});
