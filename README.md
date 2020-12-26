@@ -34,3 +34,7 @@ $.add(obj {
     GROUPS: 999g
 });
 ```
+
+## extra info
+
+- This code has been tested up to spwn 0.2 on windows (mac has not been tested, please let me know [here](https://twitter.com/TheWylieMaster) if there are any issues with mac)
