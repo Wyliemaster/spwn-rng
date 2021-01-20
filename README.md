@@ -35,7 +35,7 @@ $.add(obj {
 });
 ```
 
-## extra info
+## Version Info
 
 - This Code works on SPWN V0.3, if you want to use it on a previous Spwn build please use one of these: 
 
