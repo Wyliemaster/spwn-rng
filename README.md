@@ -37,4 +37,7 @@ $.add(obj {
 
 ## extra info
 
-- This Code works on SPWN V0.3, if you want to use it on a previous Spwn build please use [this Version](https://github.com/Wyliemaster/spwn-rng/commit/538b340a827cd8c3d8b1274f41501b9c3b909e00)
+- This Code works on SPWN V0.3, if you want to use it on a previous Spwn build please use one of these: 
+
+- [V0.1](https://github.com/Wyliemaster/spwn-rng/commit/538b340a827cd8c3d8b1274f41501b9c3b909e00)
+- [V0.2](https://github.com/Wyliemaster/spwn-rng/commit/538b340a827cd8c3d8b1274f41501b9c3b909e00)
