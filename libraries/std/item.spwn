@@ -1,0 +1,57 @@
+#[no_std]
+constants = import "constants.spwn"
+extract constants.obj_props
+
+extract import "util.spwn"
+
+impl @item {
+    
+    add:
+    #[desc("Implementation of the pickup trigger")]
+    (self, #[desc("Amount to add")] amount: @number) {
+        $.add( trigger{
+            OBJ_ID: 1817,
+            COUNT: amount,
+            ITEM: self,
+        })
+    },
+
+    if_is:
+    #[desc("Implementation of the instant count trigger")]
+    (
+        self, 
+        #[desc("Comparison mode")] comparison: @comparison, 
+        #[desc("Number to compare with")] other: @number, 
+        #[desc("Target function if comparison is 'true'")] function: @trigger_function
+    ) {
+        $.add( trigger{
+            OBJ_ID: 1811,
+            TARGET: function,
+            COUNT: other,
+            ACTIVATE_GROUP: true, 
+            COMPARISON: comparison.id, 
+            ITEM: self,
+        })
+    },
+
+    count:
+    #[desc("Implementation of the count trigger (-> returns an event)")]
+    (
+        self, 
+        #[desc("Number to check against")] number: @number = 0
+    ) {
+        -> return @event::{
+            on_triggered: (function) => $.add( trigger{
+                OBJ_ID: 1611,
+                TARGET: function,
+                COUNT: number,
+                ACTIVATE_GROUP: true, 
+                ITEM: self,
+                COUNT_MULTI_ACTIVATE: true,
+                
+            })
+        }
+        
+    },
+    _range_: create_range_macro(@item)
+}

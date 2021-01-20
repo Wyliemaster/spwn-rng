@@ -1,0 +1,94 @@
+#[no_std]
+constants = import "constants.spwn"
+
+extract constants.obj_props
+
+type @event
+
+impl @event {
+    on: #[desc("Triggers a function every time an event fires")] (
+        #[desc("Event to trigger on")] event: @event, 
+        #[desc("Function to trigger")] function: @trigger_function
+    ){
+        event.on_triggered(function)
+    }
+}
+
+return {
+    
+    touch: #[desc("Implementation of the touch trigger (returns an event)")] (
+        #[desc("Dual mode (only check for touch on the dual side)")] dual_side: @bool = false
+    ) {
+        return @event::{
+            on_triggered: (function) => $.add( trigger{
+                OBJ_ID: 1595,
+                HOLD_MODE: true,
+                TOGGLE_MODE: 1,
+                TARGET: function,
+                DUAL_MODE: dual_side,
+                
+            })
+        }
+        
+    },
+
+    touch_end: #[desc("Returns an event for when a touch ends")] (
+        #[desc("Dual mode (only check for touch on the dual side)")] dual_side: @bool = false
+    ) {
+        return @event::{
+            on_triggered: (function) => $.add( trigger{
+                OBJ_ID: 1595,
+                HOLD_MODE: true,
+                TOGGLE_MODE: 2,
+                TARGET: function,
+                DUAL_MODE: dual_side,
+                
+            })
+        }
+        
+    },
+
+    collision: #[desc("Implementation of the collision trigger (returns an event)")] (
+        #[desc("Block A ID")] a: @block, 
+        #[desc("Block B ID")] b: @block
+    ) {
+        return @event::{
+            on_triggered: (function) => $.add( trigger{
+                OBJ_ID: 1815,
+                BLOCK_A: a,
+                BLOCK_B: b,
+                ACTIVATE_GROUP: true,
+                TARGET: function,
+                
+            })
+        }
+        
+    },
+
+    collision_exit: #[desc("Returns an event for when a collision exits")] (
+        #[desc("Block A ID")] a: @block, 
+        #[desc("Block B ID")] b: @block
+    ) {
+        return @event::{
+            on_triggered: (function) => $.add( trigger{
+                OBJ_ID: 1815,
+                BLOCK_A: a,
+                BLOCK_B: b,
+                ACTIVATE_GROUP: true,
+                ACTIVATE_ON_EXIT: true,
+                TARGET: function,
+                
+            })
+        }
+    },
+
+    death: #[desc("Returns an event for when the player dies")] (){
+        return @event::{
+            on_triggered: (function) => $.add( trigger{
+                OBJ_ID: 1812,
+                ACTIVATE_GROUP: true,
+                TARGET: function
+            })
+        }
+    }
+}

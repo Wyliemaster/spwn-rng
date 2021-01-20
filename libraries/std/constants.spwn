@@ -1,0 +1,153 @@
+#[no_std]
+
+type @comparison
+type @easing_type
+
+//comparison
+cmp = (id: @number) {
+    return @comparison::{id: id}
+}
+
+//easing type
+et = (id: @number) {
+    return @easing_type::{id: id}
+}
+
+//object key
+ok = (id: @number, pat: @pattern | @type_indicator) {
+    return @object_key::{id: id, pattern: pat}
+}
+
+
+
+return {
+    easing_types : {
+        NONE : et(0),
+        EASE_IN_OUT : et(1),
+        EASE_IN : et(2),
+        EASE_OUT : et(3),
+        ELASTIC_IN_OUT : et(4),
+        ELASTIC_IN : et(5),
+        ELASTIC_OUT : et(6),
+        BOUNCE_IN_OUT : et(7),           
+        BOUNCE_IN : et(8),
+        BOUNCE_OUT : et(9),
+        EXPONENTIAL_IN_OUT : et(10),
+        EXPONENTIAL_IN : et(11),
+        EXPONENTIAL_OUT : et(12),
+        SINE_IN_OUT : et(13),
+        SINE_IN : et(14),
+        SINE_OUT : et(15),
+        BACK_IN_OUT : et(16),
+        BACK_IN : et(17),
+        BACK_OUT : et(18)
+    },
+
+    comparisons : {
+        EQUAL_TO : cmp(0),
+        LARGER_THAN : cmp(1),
+        SMALLER_THAN : cmp(2)
+    },
+
+    colors: {
+        BG: 1000c
+    },
+    
+    obj_props : {
+        OBJ_ID : ok(1, @number),            
+        X : ok(2, @number),
+        Y : ok(3, @number),
+        HORIZONTAL_FLIP : ok(4, @bool),
+        VERTICAL_FLIP : ok(5, @bool),
+        ROTATION : ok(6, @number),
+        TRIGGER_RED : ok(7, @number),
+        TRIGGER_GREEN : ok(8, @number),
+        TRIGGER_BLUE : ok(9, @number),
+        DURATION : ok(10, @number),
+        TOUCH_TRIGGERED : ok(11, @bool),
+        PORTAL_CHECKED : ok(13, @bool),
+        PLAYER_COLOR_1 : ok(15, @bool),
+        PLAYER_COLOR_2 : ok(16, @bool),
+        BLENDING : ok(17, @bool),
+        EDITOR_LAYER_1 : ok(20, @number),
+        COLOR : ok(21, @color),
+        COLOR_2 : ok(22, @color),
+        TARGET_COLOR : ok(23, @color),
+        Z_LAYER : ok(24, @number),
+        Z_ORDER : ok(25, @number),
+        MOVE_X : ok(28, @number),
+        MOVE_Y : ok(29, @number),
+        EASING : ok(30, @number),
+        TEXT : ok(31, @string),
+        SCALING : ok(32, @number),
+        GROUP_PARENT : ok(34, @bool),
+        OPACITY : ok(35, @number),
+        HVS_ENABLED : ok(41, @bool),
+        COLOR_2_HVS_ENABLED : ok(42, @bool),
+        HVS : ok(43, @string),
+        COLOR_2_HVS : ok(44, @string),
+        FADE_IN : ok(45, @number),
+        HOLD : ok(46, @number),
+        FADE_OUT : ok(47, @number),
+        PULSE_HSV : ok(48, @bool),
+        COPIED_COLOR_HVS : ok(49, @string),
+        COPIED_COLOR_ID : ok(50, @color),
+        TARGET : ok(51, @color | @group | @trigger_function),
+        TARGET_TYPE : ok(52, @number),
+        YELLOW_TELEPORTATION_PORTAL_DISTANCE: ok(54, @number),
+        ACTIVATE_GROUP : ok(56, @bool),
+        GROUPS : ok(57, [@group] | @group),
+        LOCK_TO_PLAYER_X : ok(58, @bool),
+        LOCK_TO_PLAYER_Y : ok(59, @bool),
+        COPY_OPACTITY : ok(60, @bool),
+        EDITOR_LAYER_2 : ok(61, @number),
+        SPAWN_TRIGGERED : ok(62, @bool),
+        SPAWN_DURATION : ok(63, @number | @epsilon),
+        DONT_FADE : ok(64, @bool),
+        MAIN_ONLY : ok(65, @bool),
+        DETAIL_ONLY : ok(66, @bool),
+        DONT_ENTER : ok(67, @bool),
+        ROTATE_DEGREES : ok(68, @number),
+        TIMES_360 : ok(69, @number),
+        LOCK_OBJECT_ROTATION : ok(70, @bool),
+        FOLLOW : ok(71, @group),
+        CENTER : ok(71, @group),
+        TARGET_POS : ok(71, @group),
+        X_MOD : ok(72, @number),
+        Y_MOD : ok(73, @number),
+        STRENGTH : ok(75, @number),
+        ANIMATION_ID : ok(76, @number),
+        COUNT : ok(77, @number),
+        SUBTRACT_COUNT : ok(78, @number),
+        PICKUP_MODE : ok(79, @number),
+        ITEM : ok(80, @item),
+        BLOCK_A : ok(80, @block),
+        HOLD_MODE : ok(81, @bool),
+        TOGGLE_MODE : ok(82, @number),
+        INTERVAL : ok(84, @number),
+        EASING_RATE : ok(85, @number),
+        EXCLUSIVE : ok(86, @bool),
+        MULTI_TRIGGER : ok(87, @bool),
+        COMPARISON : ok(88, @number),
+        DUAL_MODE : ok(89, @bool),
+        SPEED : ok(90, @number),
+        DELAY : ok(91, @number),
+        Y_OFFSET : ok(92, @number),
+        ACTIVATE_ON_EXIT : ok(93, @bool),
+        DYNAMIC_BLOCK : ok(94, @bool),
+        BLOCK_B : ok(95, @block),
+        GLOW_DISABLED : ok(96, @bool),
+        ROTATION_SPEED : ok(97, @number),
+        DISABLE_ROTATION : ok(98, @bool),
+        COUNT_MULTI_ACTIVATE : ok(104, @bool),
+        USE_TARGET : ok(100, @bool),
+        TARGET_POS_AXES : ok(101, @number),
+        EDITOR_DISABLE : ok(102, @bool),
+        HIGH_DETAIL : ok(103, @bool),
+        MAX_SPEED : ok(105, @number),
+        RANDOMIZE_START : ok(106, @bool),
+        ANIMATION_SPEED : ok(107, @number),
+        LINKED_GROUP : ok(108, @number),
+        ACTIVE_TRIGGER: ok(36, @bool),
+    }
+}

@@ -1,0 +1,65 @@
+#[no_std]
+constants = import "constants.spwn"
+
+extract constants.obj_props
+extract constants.comparisons
+extract import "control_flow.spwn"
+
+return {
+    
+    shake: #[desc("Implementation of the shake trigger")]
+    (
+        #[desc("Strength value")] strength: @number = 1,
+        #[desc("Interval value")] interval: @number = 0,
+        #[desc("Duration of shake")] duration: @number = 0.5
+    ){
+        $.add( trigger {
+            OBJ_ID: 1520,
+            STRENGTH: strength,
+            INTERVAL: interval,
+            DURATION: duration,
+        })
+        wait(duration)
+    },
+
+    disable_trail: #[desc("Disables the player's trail")] (){
+        $.add( trigger{
+            OBJ_ID: 33,
+        })
+    },
+
+    enable_trail: #[desc("Enables the player's trail")] (){
+        $.add( trigger{
+            OBJ_ID: 32,
+        })
+    },
+
+    show_player: #[desc("Shows the player")] (){
+        $.add( trigger{
+            OBJ_ID: 1613,
+        })
+    },
+    
+    hide_player: #[desc("Hides the player")] (){
+        $.add( trigger{
+            OBJ_ID: 1612,
+        })
+    },
+
+    toggle_bg_effect: #[desc("Implementation of the bg effect on/off triggers")] (
+        #[desc("Weather to toggle bg effect on or off")] on: @bool = false
+    ) {
+        if on {
+            $.add( trigger{
+                OBJ_ID: 1818,
+            })
+        } else {
+            $.add( trigger{
+                OBJ_ID: 1819,
+            })
+        }
+    },
+
+    
+        
+}

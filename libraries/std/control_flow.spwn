@@ -1,0 +1,141 @@
+#[no_std]
+
+constants = import "constants.spwn"
+
+extract constants.obj_props
+extract constants.comparisons
+
+wait = #[desc("Adds a delay before the next triggers")] (
+	#[desc("Delay time in seconds (leave empty for minimum delay)")] time: @number | @epsilon = @epsilon::{}
+){
+	if time.type == @epsilon || time > 0 {
+		$.add( trigger{
+			OBJ_ID: 1268,
+			SPAWN_DURATION: time,
+			TARGET: !{
+				-> return
+			},
+		})
+	} else {
+		-> return
+	}
+	
+}
+call_with_delay = #[desc("Call a function after a delay")] (
+	#[desc("Delay time in seconds (leave empty for minimum delay)")] time: @number | @epsilon = @epsilon::{}, 
+	#[desc("Function to call after the delay")] function: @trigger_function
+) {
+	$.add(trigger{
+		OBJ_ID: 1268,
+		SPAWN_DURATION: time,
+		TARGET: function,
+	})
+}
+-> return {
+	wait: wait,
+	call_with_delay: call_with_delay,
+	
+	
+
+	supress_signal: #[desc("Stops signal from coming past for some time")] (
+		#[desc("Time to supress signal")] delay: @number
+	){
+		//if checker is 0, a signal can come through
+		//if checker is 1, it will be supressed
+		checker = @counter::new(0)
+		-> (){
+			wait(delay)
+			checker.item.if_is(EQUAL_TO, 1, !{
+				checker.item.add(-1)
+			})
+		}()
+		checker.item.if_is(EQUAL_TO, 0, !{
+			checker.item.add(1)
+			-> return
+		})
+		
+	
+	},
+
+	for_loop: #[desc("Implementation of a spawn loop with a counter")] 
+    (
+        #[desc("Range of values (for example 0..10)")] range: @range,
+		#[desc("Macro of the code that gets looped, should take the iterator (a counter) as the first argument.")] code: @macro, 
+        #[desc("Delay between loops (less than 0.05 may be unstable)")] delay: @number | @epsilon = @epsilon::{}, 
+        #[desc("Weather to reset the iterator after looping (only disable if the loop is only triggered once)")] reset: @bool = true, 
+        #[desc("Operation speed of the reset of the iterator, if enabled")] reset_speed: @number = 1,
+    ) {
+		i = @counter::new(range.start)
+
+        func = !{
+            code(i)
+			i.add(range.step_size)
+			wait()
+            i.item.if_is(SMALLER_THAN, range.end, !{
+                call_with_delay(delay, func)
+            })
+
+            i.item.if_is(LARGER_THAN, range.end - 1, !{
+                if reset {
+					wait()
+                    i.reset(reset_speed)
+                }
+                -> return
+            })
+        }
+
+        func!
+        
+	},
+
+	while_loop: #[desc("Implementation of a conditional spawn loop")] 
+	(
+		#[desc("While loop condition, should -> return a boolean")] expr: @macro, 
+		#[desc("Macro of the code that gets looped")] code: @macro,
+		#[desc("Delay between loops (less than 0.05 may be unstable)")] delay: @number | @epsilon = @epsilon::{},
+	) {
+		func = !{
+			code()
+			if expr() {
+				call_with_delay(delay, func)
+			} else {
+				-> return
+			}
+        }
+
+        call_with_delay(delay, func)
+	},
+
+	sync_function: 
+	(
+		code: @macro
+	) {
+		import "item.spwn"
+		ready_sign = ?i
+		func = !{
+			code()
+			ready_sign.add(1)
+		}
+
+		wait_for_ready = () {
+			closure = !{
+				ready_sign.add(-1)
+				closure.start_group.toggle_off()
+				wait(0)
+				-> return
+			}
+			closure.start_group.toggle_on()
+			ready_sign.count(1).on_triggered(!{
+				wait(0)
+				closure!
+			})
+		}
+
+		-> return () {
+			func!
+			wait_for_ready()
+		}
+	}
+	
+
+}

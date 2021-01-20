@@ -3,17 +3,17 @@ extract obj_props;
 
 generate_seed = (starting_seed: @number = 314) {
     let seed = starting_seed + starting_seed;
-    seed += seed - (starting_seed/2);
+    seed += (seed - (starting_seed/2));
     return seed;
 }
 
 input_seed_modifier = (seed) {
 let modified_seed = @counter::new(seed);
 let key = generate_seed(seed);
-touch().on_triggered({
+touch().on_triggered(!{
 modified_seed += (key + (key/2) + 692);
 })
-touch_end().on_triggered({
+touch_end().on_triggered(!{
     modified_seed -= (key + (key/2) - 534);
 })
 
