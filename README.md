@@ -4,11 +4,11 @@
  
 spwn RNG is a input based attempt to create a random number generator inside of Geometry Dash. It's intended to assist creators in implementing rng into their levels without needing to worry about the tedious aspects of setting it up
 
-## how to use
+## How to use
 
-to use spwn RNG all you need to do is import the library, you can do this using `extract import "rng.spwn";`
+To use spwn RNG all you need to do is import the library, you can do this using `extract import "rng.spwn";`
 
-once imported you can use the following macro:
+Once imported you can use the following macro:
 
 - rng(seed: @number, size: @number) -> @counter
     generates a random number
@@ -23,3 +23,7 @@ if rand < 3 {
 coin_path_group.toggle_off() // disables group
 }
 ```
+
+### Version
+
+- This was created for spwn V0.4 Beta
