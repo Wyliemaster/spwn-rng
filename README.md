@@ -2,42 +2,28 @@
 
 ## What is spwn RNG
  
-spwn RNG is a seed based attempt to create a random number generator inside of geometry dash. the number is calculated using math on a seed provided for every input the user takes in-game
+spwn RNG is a input based attempt to create a random number generator inside of Geometry Dash. It's intended to assist creators in implementing rng into their levels without needing to worry about the tedious aspects of setting it up
 
-## how to use
+## How to use
 
-to use spwn RNG all you need to do is import the library, you can do this using `extract import "rng.spwn";`
+To use spwn RNG all you need to do is import the library, you can do this using `extract import "rng.spwn";`
 
-once imported you can use the following macros:
+Once imported you can use the following macro:
 
-- input_seed_modifier
-    modifies seed based on input
+- rng(seed: @number, size: @number) -> @counter  
+    - generates a random number
 
-- generate_seed
-    makes you a seed
-
-
-an example of the RNG being implemented can be found [here](https://github.com/Wyliemaster/spwn-rng/blob/main/test.spwn) or as shown below
-
+An example of using RNG is shown below
 ```spwn
-extract obj_props;
-extract import "rng.spwn";
+extract import "rng.spwn"; //import the lib
 
+rand = rng(1, 5); //gets random number between 0-5
 
-inputSeed = input_seed_modifier(1234); // add a 4 digit number here
-
-$.add(obj {
-    OBJ_ID: 1615,
-    X: 300,
-    Y: 90,
-    ITEM: inputSeed.item,
-    GROUPS: 999g
-});
+if rand < 3 {
+coin_path_group.toggle_off() // disables group
+}
 ```
 
-## Version Info
+## Version
 
-- This Code works on SPWN V0.3, if you want to use it on a previous Spwn build please use one of these: 
-
-    - [V0.1](https://github.com/Wyliemaster/spwn-rng/releases/tag/V0.1%2FV0.2)
-    - [V0.2](https://github.com/Wyliemaster/spwn-rng/releases/tag/V0.1%2FV0.2)
+- This was created for spwn V0.4 Beta

@@ -1,0 +1,13 @@
+extract import "rng.spwn"; // import like this
+extract obj_props; // import objects
+
+random_number = rng(1, 25); // rng(seed: @number, size: @number) -> @counter
+
+//object which displays the rng value in real time
+$.add(obj {
+    OBJ_ID: 1615,
+    X: 300,
+    Y: 90,
+    ITEM: random_number.item,
+    GROUPS: 999g, 
+});
