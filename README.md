@@ -10,7 +10,7 @@ To use spwn RNG all you need to do is import the library, you can do this using 
 
 Once imported you can use the following macro:
 
-- rng(seed: @number, size: @number) -> @counter
+- rng(seed: @number, size: @number) -> @counter  
     generates a random number
 
 An example of using RNG is shown below
