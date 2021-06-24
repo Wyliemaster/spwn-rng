@@ -24,6 +24,6 @@ coin_path_group.toggle_off() // disables group
 }
 ```
 
-### Version
+## Version
 
 - This was created for spwn V0.4 Beta
