@@ -1,26 +1,55 @@
 type @rng;
 extract obj_props;
 
-generate_seed = (starting_seed: @number = 314) {
-    let seed = starting_seed + starting_seed;
-    seed += (seed - (starting_seed/2));
-    return seed;
+let toggle_counter = @counter::new(1);
+
+decrement = (rand: @counter)  {
+    -> while_loop(() => toggle_counter == 0, () {
+        rand -= 1;
+        wait()
+})}
+
+increment = (rand: @counter)  {
+    -> while_loop(() => toggle_counter == 1, () {
+        rand += 1;
+        wait();
+})}
+
+
+toggle_seed = (seed: @counter){
+    if toggle_counter == 1{
+        decrement(seed);
+        wait();
+        toggle_counter -= 1;
+
+    }
+    else if toggle_counter == 0 {
+        increment(seed);
+        wait();
+        toggle_counter += 1;
+    }
+    wait();
 }
 
-input_seed_modifier = (seed) {
-let modified_seed = @counter::new(seed);
-let key = generate_seed(seed);
-touch().on_triggered(!{
-modified_seed += (key + (key/2) + 692);
-})
-touch_end().on_triggered(!{
-    modified_seed -= (key + (key/2) - 534);
-})
+rng = (seed: @number = 1, size: @number = 10) {
+    let rand = @counter::new(seed);
 
+    touch().on_triggered(!{
+        wait();
+        toggle_seed(rand);
+    })
 
-return modified_seed;
+    -> while_loop(() => true, () {
+
+        if rand >= size { rand -= size };
+        wait();
+        if rand <= 0 { rand += size };
+        wait();
+
+    })
+    return rand;
 }
+
 return {
-    generate_seed: generate_seed,
-    input_seed_modifier: input_seed_modifier,
+rng: rng,
 }
