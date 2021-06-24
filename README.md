@@ -15,8 +15,7 @@ once imported you can use the following macro:
 
 An example of using RNG is shown below
 ```spwn
-extract obj_props;
-extract import "rng.spwn";
+extract import "rng.spwn"; //import the lib
 
 rand = rng(1, 5); //gets random number between 0-5
 
