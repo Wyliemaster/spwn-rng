@@ -13,7 +13,7 @@ Once imported you can use the following macro:
 - rng(seed: @number, size: @number) -> @counter  
     - generates a random number
 
-An example of using RNG is shown below
+An example of using RNG is shown below and inside of [example.spwn](https://github.com/Wyliemaster/spwn-rng/blob/main/example.spwn)
 ```spwn
 extract import "rng.spwn"; //import the lib
 
@@ -24,6 +24,8 @@ coin_path_group.toggle_off() // disables group
 }
 ```
 
+An example of its in-game use is showcase within [this video](https://www.youtube.com/watch?v=-7VhO6EWSko)
+
 ## Version
 
-- This was created for spwn V0.4 Beta
+- This was created for spwn V0.4 Beta and higher
