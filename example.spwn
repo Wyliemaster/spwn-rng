@@ -1,13 +1,17 @@
 extract import "rng.spwn"; // import like this
-extract obj_props; // import objects
 
-random_number = rng(1, 25); // rng(seed: @number, size: @number) -> @counter
+random_number = rng(); // rng(seed: @number, size: @number) -> @counter
 
-//object which displays the rng value in real time
-$.add(obj {
-    OBJ_ID: 1615,
-    X: 300,
-    Y: 90,
-    ITEM: random_number.item,
-    GROUPS: 999g, 
-});
+// function to move a block 100 units to the right if the codition is met
+random_move = !{
+    wait(); // to stop the triggers breaking
+    if random_number > 3 { // if the randomly generated number is greater than 3
+        1g.toggle_off();
+    }
+}
+
+//generic example of the function being called
+-> while_loop(() => true, () {
+    wait(2)
+    random_move! // called every 2 seconds, if the random number is greater than 3 then it will delete a wall
+})
